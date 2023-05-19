@@ -5,7 +5,6 @@ import web.model.User;
 import web.repository.UserRepository;
 
 import java.util.List;
-
 @Service
 public class UserServiceImp implements UserService {
     private final UserRepository userRepository;
