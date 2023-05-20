@@ -1,11 +1,14 @@
 package web.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
 import web.repository.UserRepository;
 
+
 import java.util.List;
 @Service
+@Transactional
 public class UserServiceImp implements UserService {
     private final UserRepository userRepository;
 
