@@ -7,31 +7,32 @@
 </head>
 <body>
 <div>
-    <p class="lead">User list</p>
+    <h1>User list</h1>
 </div>
 <table>
-    <thead class="container">
-    <tr style="background-color: black; color: antiquewhite; text-align:center">
-        <th class="col">ID</th>
-        <th class="col">USERNAME</th>
-        <th class="col">E-MAIL</th>
-        <th class="col">Update</th>
-        <th class="col">Delete</th>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>USERNAME</th>
+        <th>E-MAIL</th>
+        <th>Update</th>
+        <th>Delete</th>
     </tr>
     </thead>
 
     <tr th:each="user : ${users}">
-        <td th:utext="${user.getId()}">id</td>
-        <td th:utext="${user.getUsername()}">name</td>
-        <td th:utext="${user.getEmail()}">email</td>
+        <td th:utext="${user.id}">id</td>
+        <td th:utext="${user.username}">name</td>
+        <td th:utext="${user.email}">email</td>
         <td>
+
             <button type="submit" th:object="person">
                 <a th:href="@{/{id}/edit(id=${user.getId()})}">Edit</a>
             </button>
 
         </td>
         <td>
-            <form th:method="DELETE" th:action="@{/{id}(id=${user.getId()})}" th:object="${user}">
+            <form th:method="DELETE" th:action="@{/delete/{id}(id=${user.getId()})}" th:object="${user}">
                 <input type="hidden" name="id" th:value="${user.getId()}">
                 <button type="submit">delete</button>
             </form>
@@ -43,9 +44,9 @@
 <br/>
 
 <hr/>
-<div class="container pl-0">
-    <div class="row pb-3 pt-3 mb-2 pl-0 ml-0">
-        <button class="col-12 pl-0" onclick="window.location.href ='new'"><span class="btn btn-secondary">Create new user</span>
+<div>
+    <div>
+        <button onclick="window.location.href ='new'"><span>Create new user</span>
         </button>
     </div>
 </div>

@@ -1,5 +1,6 @@
 package web.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
@@ -7,11 +8,12 @@ import web.repository.UserRepository;
 
 
 import java.util.List;
+
 @Service
-@Transactional
 public class UserServiceImp implements UserService {
     private final UserRepository userRepository;
 
+    @Autowired
     public UserServiceImp(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -22,6 +24,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    @Transactional
     public void createUser(User user) {
         if (user.getId() == 0) {
             userRepository.createUser(user);
@@ -29,6 +32,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    @Transactional
     public void updateUser(User user) {
         userRepository.updateUser(user);
     }
@@ -39,6 +43,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    @Transactional
     public User deleteUser(long id) {
         User user = null;
         if (user == null) {

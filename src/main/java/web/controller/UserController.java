@@ -49,18 +49,18 @@ public class UserController {
     @GetMapping("/new")
     public String newUser(Model model) {
         User newuser = new User();
-        model.addAttribute("person",newuser);
+        model.addAttribute("person", newuser);
         return "/new";
     }
 
-    @PostMapping()
+    @PostMapping("/index")
     public String create(@ModelAttribute("person") @Valid User user,
                          BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "/new";
-
+        user.setId(0L);
         userService.createUser(user);
-        return "redirect:/index";
+        return "redirect:/";
     }
 
     @DeleteMapping("/delete/{id}")
