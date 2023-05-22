@@ -1,7 +1,6 @@
 package web.config;
 
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
@@ -30,6 +29,7 @@ public class WebConfig implements WebMvcConfigurer {
     private final ApplicationContext applicationContext;
 
     private final Environment env;
+
     @Autowired
     public WebConfig(ApplicationContext applicationContext, Environment env) {
         this.applicationContext = applicationContext;
@@ -76,16 +76,6 @@ public class WebConfig implements WebMvcConfigurer {
         return dataSource;
     }
 
-    /*@Bean
-    public DataSource getDataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(Objects.requireNonNull(env.getProperty("db.driver")));
-        dataSource.setUrl(env.getProperty("db.url"));
-        dataSource.setUsername(env.getProperty("db.username"));
-        dataSource.setPassword(env.getProperty("db.password"));
-        return dataSource;
-    }*/
-
     @Bean
     public LocalSessionFactoryBean getSessionFactory() {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
@@ -94,7 +84,7 @@ public class WebConfig implements WebMvcConfigurer {
         Properties props = new Properties();
         props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-
+        props.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
         factoryBean.setHibernateProperties(props);
         factoryBean.setAnnotatedClasses(User.class);
         return factoryBean;

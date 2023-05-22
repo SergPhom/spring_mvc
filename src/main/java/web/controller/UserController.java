@@ -10,6 +10,7 @@ import web.model.User;
 import web.service.UserService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -23,7 +24,8 @@ public class UserController {
 
     @GetMapping("/")
     public String showAllUsers(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
+        List<User> users = userService.getAllUsers();
+        model.addAttribute("users", users);
 
         return "index";
     }
@@ -45,13 +47,14 @@ public class UserController {
     }
 
     @GetMapping("/new")
-    public String newUser(@ModelAttribute("user") User user) {
-
+    public String newUser(Model model) {
+        User newuser = new User();
+        model.addAttribute("person",newuser);
         return "/new";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("user") @Valid User user,
+    public String create(@ModelAttribute("person") @Valid User user,
                          BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "/new";
@@ -60,7 +63,7 @@ public class UserController {
         return "redirect:/index";
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return "redirect:/index";
