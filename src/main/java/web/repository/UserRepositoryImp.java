@@ -22,8 +22,6 @@ public class UserRepositoryImp implements UserRepository {
     @Override
     public void createUser(User user) {
         entityManager.persist(user);
-        entityManager.flush();
-
     }
 
     @Override
